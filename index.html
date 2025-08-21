@@ -1,68 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cris's Development</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
     body {
-      background: linear-gradient(135deg,#0f0f0f,#1a1a2e);
-      color:white; overflow-x:hidden;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+      color: white;
+      overflow-x: hidden;
     }
+
     header {
-      position:fixed; top:0; width:100%; padding:20px 40px;
-      display:flex; justify-content:space-between; align-items:center;
-      backdrop-filter:blur(12px); background:rgba(255,255,255,0.05);
-      border-bottom:1px solid rgba(255,255,255,0.1); z-index:1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
     }
-    header h1 { font-size:24px; font-weight:600; color:#fff; }
-    nav a {
-      margin:0 15px; text-decoration:none; color:#fff; font-weight:500;
-      padding:8px 16px; border-radius:12px; transition:all 0.3s ease;
-      background:rgba(255,255,255,0.05); backdrop-filter:blur(8px);
+
+    header h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      color: #fff;
     }
-    nav a:hover {
-      transform:scale(1.1);
-      background:rgba(255,255,255,0.2);
-      box-shadow:0 0 15px rgba(0,200,255,0.7);
+
+    header nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #ddd;
+      font-weight: 600;
+      transition: color 0.3s ease;
     }
-    section {
-      min-height:100vh; display:flex; flex-direction:column;
-      justify-content:center; align-items:center; padding:100px 20px;
-      text-align:center;
+
+    header nav a:hover {
+      color: #00e6ff;
     }
-    h2 { font-size:40px; margin-bottom:20px; }
-    p { max-width:700px; line-height:1.6; margin-bottom:30px; }
-    .card-container {
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:20px; width:100%; max-width:1000px; margin-top:40px;
-    }
-    .card {
-      padding:30px; border-radius:20px;
-      background:rgba(255,255,255,0.05); backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,0.1);
-      transition:all 0.3s ease;
-    }
-    .card:hover {
-      transform:translateY(-10px) scale(1.03);
-      box-shadow:0 0 20px rgba(0,200,255,0.5);
-    }
+
     .discord-btn {
-      position:fixed; bottom:20px; right:20px;
-      padding:15px 25px; border-radius:50px;
-      background:rgba(88,101,242,0.9); color:white;
-      font-size:18px; font-weight:600; border:none;
-      cursor:pointer; transition:all 0.3s ease;
-      box-shadow:0 0 15px rgba(88,101,242,0.6);
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 10px 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      color: #7289da;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
     }
+
     .discord-btn:hover {
-      transform:scale(1.1);
-      box-shadow:0 0 25px rgba(88,101,242,1);
+      background: rgba(114,137,218,0.2);
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #7289da;
     }
-    footer {
-      text-align:center; padding:40px; background:rgba(255,255,255,0.05);
-      backdrop-filter:blur(10px); border-top:1px solid rgba(255,255,255,0.1);
+
+    section {
+      padding: 80px 50px;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 36px;
+      margin-bottom: 50px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(15px);
+      transition: all 0.4s ease;
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      border-color: #00e6ff;
+      box-shadow: 0 0 30px rgba(0,230,255,0.4);
+    }
+
+    .card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      margin-bottom: 15px;
     }
   </style>
 </head>
@@ -70,60 +104,54 @@
   <header>
     <h1>Cris's Development</h1>
     <nav>
-      <a href="#home">Home</a>
       <a href="#services">Services</a>
-      <a href="#prices">Prices</a>
-      <a href="#about">About</a>
+      <a href="#why">Why Choose Us?</a>
+      <a href="#contact">Contact</a>
+      <a href="https://discord.com/users/1047483573264982066" target="_blank" class="discord-btn">Discord</a>
     </nav>
   </header>
 
-  <section id="home">
-    <h2>Welcome to Cris's Development</h2>
-    <p>We build high-quality Roblox systems, modern UI, and smooth gameplay experiences with care and precision.</p>
-  </section>
-
   <section id="services">
     <h2>Our Services</h2>
-    <div class="card-container">
+    <div class="grid">
       <div class="card"><h3>Game Scripting</h3><p>Custom Roblox scripts tailored for your needs.</p></div>
       <div class="card"><h3>UI/UX Design</h3><p>Sleek, animated, and user-friendly interfaces.</p></div>
-      <div class="card"><h3>Gamepass Systems</h3><p>Donation booths, shops, admin panels & more.</p></div>
+      <div class="card"><h3>Security</h3><p>Strong anti-exploit and protection systems.</p></div>
+      <div class="card"><h3>Consulting</h3><p>Professional advice to level up your project.</p></div>
     </div>
   </section>
 
-  <section id="prices">
-    <h2>Prices (Robux)</h2>
-    <div class="card-container">
-      <div class="card"><h3>Basic System</h3><p>250 R$</p></div>
-      <div class="card"><h3>Advanced System</h3><p>750 R$</p></div>
-      <div class="card"><h3>Full Package</h3><p>1500 R$</p></div>
-    </div>
-  </section>
-
-  <section id="about">
+  <section id="why">
     <h2>Why Choose Us?</h2>
-    <div class="card-container">
-      <div class="card"><h3>Fast Delivery</h3><p>Quick turnaround times for all projects.</p></div>
-      <div class="card"><h3>Quality Code</h3><p>Clean, optimized, and secure scripting.</p></div>
-      <div class="card"><h3>Trusted Developer</h3><p>Experienced in delivering top-notch Roblox systems.</p></div>
+    <div class="grid">
+      <div class="card"><h3>⚡ Fast Delivery</h3><p>We value your time and deliver quickly.</p></div>
+      <div class="card"><h3>🎨 Creativity</h3><p>Modern and aesthetic designs for every need.</p></div>
+      <div class="card"><h3>🔒 Security</h3><p>We prioritize safe and optimized solutions.</p></div>
     </div>
   </section>
 
-  <footer>
-    <p>© 2025 Cris's Development | All Rights Reserved</p>
-  </footer>
-
-  <a href="https://discord.com/users/1047483573264982066" target="_blank">
-    <button class="discord-btn">Discord</button>
-  </a>
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Join us on Discord to start your project today!</p>
+    <a href="https://discord.com/users/1047483573264982066" target="_blank" class="discord-btn">Message on Discord</a>
+  </section>
 
   <!-- GSAP Animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
-    gsap.from("header",{y:-80,opacity:0,duration:1,ease:"power3.out"});
-    gsap.from("section h2",{scrollTrigger:"section h2",y:50,opacity:0,duration:1,stagger:0.3});
-    gsap.from(".card",{scrollTrigger:".card",y:50,opacity:0,duration:1,stagger:0.2});
-    gsap.from(".discord-btn",{scale:0,opacity:0,duration:1.2,ease:"back.out(1.7)"});
+    gsap.utils.toArray(".card").forEach((card, i) => {
+      gsap.to(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: "power3.out"
+      });
+    });
   </script>
 </body>
 </html>
