@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cris’s Development — Modern Web & Game Dev Studio</title>
+  <meta name="description" content="Cris’s Development — we craft sleek Roblox systems, game UI, and modern web experiences. Hire us for fast, clean, and scalable builds." />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#5b7cfa" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235b7cfa'/%3E%3Cstop offset='1' stop-color='%23a26bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23g)'/%3E%3Cpath d='M30 65 L50 25 L70 65 L61 65 L50 42 L39 65 Z' fill='white'/%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --panel: rgba(255,255,255,0.05);
+      --text: #e6e6f0;
+      --muted: #a5a7b6;
+      --brand: #5b7cfa; /* Indigo */
+      --brand-2: #a26bfa; /* Purple */
+      --ring: rgba(91,124,250,0.45);
+      --ok: #21c17a;
+      --warn: #f6b73c;
+      --bad: #f45d5d;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius-2xl: 1.25rem;
+      --radius-xl: 0.9rem;
+      --radius-lg: 0.75rem;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f7f8ff;
+        --panel: rgba(255,255,255,0.75);
+        --text: #1d1f2a;
+        --muted: #5a5f7a;
+        --shadow: 0 10px 30px rgba(15,23,42,0.15);
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text); background: radial-gradient(1200px 800px at 80% -10%, rgba(162,107,250,0.25), transparent 60%), radial-gradient(800px 600px at -10% 20%, rgba(91,124,250,0.25), transparent 55%), var(--bg);
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1100px, 92vw); margin: 0 auto; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(120%) blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,0.35), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: 0.4px; }
+    .brand-logo {
+      width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, var(--brand), var(--brand-2)); display: grid; place-items: center; box-shadow: var(--shadow);
+    }
+    .brand-logo svg { width: 22px; height: 22px; fill: white; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
+    .nav-links a { padding: 8px 12px; border-radius: 10px; color: var(--muted); font-weight: 600; }
+    .nav-links a:hover { color: var(--text); background: var(--panel); }
+    .cta {
+      padding: 10px 16px; border-radius: 999px; font-weight: 700; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: white; box-shadow: var(--shadow); border: none; cursor: pointer;
+    }
+    .menu-btn { display: none; }
+
+    /* Hero */
+    .hero { padding: 90px 0 40px; text-align: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: rgba(91,124,250,0.12); color: #cbd5ff; font-weight: 700; letter-spacing: .3px; font-size: 12px; }
+    .hero h1 { font-size: clamp(2rem, 3.8vw + 1rem, 4rem); margin: 18px 0 10px; line-height: 1.05; }
+    .hero p { font-size: clamp(1rem, .6vw + .8rem, 1.25rem); color: var(--muted); margin: 0 auto 24px; width: min(700px, 92vw); }
+    .hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .ghost { padding: 10px 16px; border-radius: 999px; font-weight: 700; border: 1px solid rgba(255,255,255,0.16); background: transparent; color: var(--text); }
+    .ghost:hover { background: var(--panel); }
+
+    /* Cards */
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(12, 1fr); }
+    .card { grid-column: span 4; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-2xl); padding: 20px; box-shadow: var(--shadow); transition: transform .25s ease, box-shadow .25s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0,0,0,0.35); }
+    .card h3 { margin: 6px 0 6px; }
+    .kicker { color: var(--muted); font-size: 0.95rem; }
+    .icon-pill { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: var(--shadow); }
+    .icon-pill svg { width: 22px; height: 22px; fill: white; }
+
+    /* Section */
+    section { padding: 64px 0; }
+    .section-title { font-size: clamp(1.6rem, 1.6vw + 1rem, 2.2rem); margin-bottom: 8px; }
+    .section-sub { color: var(--muted); margin-bottom: 24px; }
+
+    /* Portfolio */
+    .portfolio { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .shot { grid-column: span 6; border-radius: var(--radius-2xl); overflow: hidden; background: var(--panel); border: 1px solid rgba(255,255,255,0.08); box-shadow: var(--shadow); }
+    .shot img { width: 100%; display: block; aspect-ratio: 16/10; object-fit: cover; }
+    .shot .meta { padding: 14px; display: flex; align-items: center; justify-content: space-between; }
+    .tag { padding: 6px 10px; border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; color: var(--muted); font-weight: 700; }
+
+    /* Pricing */
+    .pricing { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .tier { grid-column: span 4; background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04)); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-2xl); padding: 22px; position: relative; box-shadow: var(--shadow); }
+    .tier.popular { outline: 2px solid var(--ring); }
+    .price { font-size: 2rem; font-weight: 800; }
+    .features { margin: 12px 0 16px; color: var(--muted); }
+    .features li { margin: 8px 0; }
+
+    /* Testimonials */
+    .testimonials { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .quote { grid-column: span 6; padding: 22px; border-radius: var(--radius-xl); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); }
+    .quote p { margin: 0 0 10px; }
+    .avatar { display: flex; align-items: center; gap: 10px; }
+    .avatar img { width: 40px; height: 40px; border-radius: 50%; }
+
+    /* Contact */
+    form { display: grid; gap: 10px; }
+    input, textarea { width: 100%; padding: 12px 14px; background: rgba(255,255,255,0.06); color: var(--text); border: 1px solid rgba(255,255,255,0.14); border-radius: 12px; outline: none; }
+    input:focus, textarea:focus { box-shadow: 0 0 0 4px var(--ring); border-color: transparent; }
+    textarea { min-height: 110px; resize: vertical; }
+
+    /* Footer */
+    footer { padding: 48px 0; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.08); background: linear-gradient(180deg, transparent, rgba(255,255,255,0.04)); }
+
+    /* Utilities */
+    .hidden { display: none !important; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .card, .tier { grid-column: span 6; }
+      .quote, .shot { grid-column: span 12; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .menu-btn { display: inline-flex; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.16); background: transparent; color: var(--text); font-weight: 700; }
+      .mobile-menu { display: grid; gap: 6px; padding: 10px; border-radius: 14px; background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); margin-top: 10px; }
+      .mobile-menu a { padding: 10px 12px; border-radius: 10px; background: rgba(255,255,255,0.04); }
+      .card, .tier { grid-column: span 12; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand" aria-label="Cris’s Development home">
+        <span class="brand-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="img" aria-label="logo"><path d="M4 17h16v2H4zM11 5h2v9h-2zM7 9h2v5H7zM15 7h2v7h-2z"/></svg>
+        </span>
+        <span>Cris’s Development</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+      </nav>
+      <button class="menu-btn" id="menuBtn" aria-controls="mobileMenu" aria-expanded="false">Menu</button>
+    </div>
+    <div class="container">
+      <div id="mobileMenu" class="mobile-menu hidden" role="dialog" aria-label="Mobile menu">
+        <a href="#services" onclick="toggleMenu(false)">Services</a>
+        <a href="#work" onclick="toggleMenu(false)">Work</a>
+        <a href="#pricing" onclick="toggleMenu(false)">Pricing</a>
+        <a href="#contact" onclick="toggleMenu(false)">Contact</a>
+        <button class="cta" onclick="toggleMenu(false);document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero container">
+      <span class="eyebrow">⚡ Fast • 🎮 Roblox • 🌐 Web</span>
+      <h1>We build polished Roblox systems and sleek websites for ambitious creators.</h1>
+      <p>From admin panels and donation systems to full MM2‑style shops and modern landing pages — Cris’s Development ships fast, clean, and scalable experiences.</p>
+      <div class="hero-actions">
+        <button class="cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Start a Project</button>
+        <a class="ghost" href="#work">See our work →</a>
+      </div>
+    </section>
+
+    <section id="services" class="container">
+      <h2 class="section-title">Services</h2>
+      <p class="section-sub">Everything you need to launch, grow, and wow your players and users.</p>
+      <div class="grid" aria-label="Service cards">
+        <article class="card" aria-label="Roblox Systems">
+          <div class="icon-pill" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M3 5h18v14H3zM5 7v10h14V7zM9 9h6v2H9zM9 13h6v2H9z"/></svg>
+          </div>
+          <h3>Roblox Systems</h3>
+          <p class="kicker">Admin panels • Shops • DataStore • Anti‑cheat</p>
+        </article>
+        <article class="card" aria-label="Game UI/UX">
+          <div class="icon-pill" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v6H4zM4 14h10v6H4zM16 14h4v6h-4z"/></svg>
+          </div>
+          <h3>Game UI/UX</h3>
+          <p class="kicker">Modern, responsive interfaces with smooth animations.</p>
+        </article>
+        <article class="card" aria-label="Websites">
+          <div class="icon-pill" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 2a8 8 0 018 8h-4a12 12 0 00-4-8zm-8 8a8 8 0 018-8v4a12 12 0 00-8 4zm8 8a8 8 0 01-8-8h4a12 12 0 004 8zm0 0a8 8 0 008-8h-4a12 12 0 01-4 8z"/></svg>
+          </div>
+          <h3>Websites</h3>
+          <p class="kicker">High‑performance, SEO‑friendly, and easy to update.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="work" class="container">
+      <h2 class="section-title">Selected Work</h2>
+      <p class="section-sub">A few highlights. Ask for more examples specific to your project.</p>
+      <div class="portfolio">
+        <figure class="shot">
+          <img alt="Modern admin panel UI mockup" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='800'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235b7cfa'/%3E%3Cstop offset='1' stop-color='%23a26bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23121826'/%3E%3Crect x='60' y='60' rx='20' ry='20' width='1160' height='560' fill='%231b2236' stroke='%232a355a'/%3E%3Crect x='100' y='120' rx='12' ry='12' width='240' height='40' fill='url(%23g)'/%3E%3Crect x='100' y='180' rx='10' ry='10' width='1040' height='20' fill='%232a355a'/%3E%3Crect x='100' y='220' rx='10' ry='10' width='1040' height='320' fill='%2318202f'/%3E%3C/svg%3E" />
+          <figcaption class="meta"><span>Admin Panel</span><span class="tag">Roblox</span></figcaption>
+        </figure>
+        <figure class="shot">
+          <img alt="Sleek landing page design mockup" src="data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1280' height='800'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235b7cfa'/%3E%3Cstop offset='1' stop-color='%23a26bfa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23121826'/%3E%3Crect x='80' y='80' rx='28' ry='28' width='1120' height='560' fill='%231b2236' stroke='%232a355a'/%3E%3Crect x='120' y='120' rx='12' ry='12' width='440' height='40' fill='url(%23g)'/%3E%3Crect x='120' y='180' rx='10' ry='10' width='840' height='20' fill='%232a355a'/%3E%3Crect x='120' y='220' rx='10' ry='10' width='840' height='320' fill='%2318202f'/%3E%3C/svg%3E" />
+          <figcaption class="meta"><span>Landing Page</span><span class="tag">Web</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="pricing" class="container">
+      <h2 class="section-title">Pricing</h2>
+      <p class="section-sub">Transparent packages for different needs. Custom quotes available.</p>
+      <div class="pricing">
+        <div class="tier">
+          <h3>Starter</h3>
+          <p class="price">$99+</p>
+          <ul class="features">
+            <li>1 small script or page</li>
+            <li>72‑hour delivery</li>
+            <li>1 revision</li>
+          </ul>
+          <button class="cta" onclick="goContact('Starter')">Choose Starter</button>
+        </div>
+        <div class="tier popular">
+          <h3>Pro</h3>
+          <p class="price">$299+</p>
+          <ul class="features">
+            <li>Complex system or website</li>
+            <li>Priority delivery</li>
+            <li>3 revisions</li>
+          </ul>
+          <button class="cta" onclick="goContact('Pro')">Choose Pro</button>
+        </div>
+        <div class="tier">
+          <h3>Studio</h3>
+          <p class="price">$799+</p>
+          <ul class="features">
+            <li>Full project with support</li>
+            <li>Milestone planning</li>
+            <li>Up to 6 revisions</li>
+          </ul>
+          <button class="cta" onclick="goContact('Studio')">Choose Studio</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <h2 class="section-title">What clients say</h2>
+      <p class="section-sub">Real results, smooth hand‑offs, and quick communication.</p>
+      <div class="testimonials">
+        <blockquote class="quote">
+          <p>“Lightning‑fast delivery and the UI looked premium. Exactly what we needed.”</p>
+          <div class="avatar"><img alt="User avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ccircle cx='32' cy='24' r='14' fill='%23a26bfa'/%3E%3Crect x='8' y='34' width='48' height='22' rx='11' fill='%235b7cfa'/%3E%3C/svg%3E"/><span>— Alex P.</span></div>
+        </blockquote>
+        <blockquote class="quote">
+          <p>“Clean code, great docs, and a smooth experience from start to finish.”</p>
+          <div class="avatar"><img alt="User avatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Ccircle cx='32' cy='24' r='14' fill='%235b7cfa'/%3E%3Crect x='8' y='34' width='48' height='22' rx='11' fill='%23a26bfa'/%3E%3C/svg%3E"/><span>— Jamie L.</span></div>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2 class="section-title">Let’s build something</h2>
+      <p class="section-sub">Tell us what you’re after and we’ll reply with a plan and quote.</p>
+      <div class="grid">
+        <div class="card" style="grid-column: span 7;">
+          <form onsubmit="return submitContact(event)">
+            <label>
+              <span class="kicker">Your Name</span>
+              <input required name="name" placeholder="Your name" />
+            </label>
+            <label>
+              <span class="kicker">Email</span>
+              <input required name="email" type="email" placeholder="you@example.com" />
+            </label>
+            <label>
+              <span class="kicker">Budget (optional)</span>
+              <input name="budget" placeholder="$300 — $1000" />
+            </label>
+            <label>
+              <span class="kicker">Project Details</span>
+              <textarea required name="message" placeholder="Describe your project, features, and timeline"></textarea>
+            </label>
+            <button class="cta" type="submit">Send Request</button>
+            <p id="formStatus" class="kicker" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+        <aside class="card" style="grid-column: span 5;">
+          <h3>Why Cris’s Development?</h3>
+          <ul class="features">
+            <li>Production‑ready code & clean architecture</li>
+            <li>Clear documentation & hand‑off</li>
+            <li>Rapid iterations with preview builds</li>
+            <li>Friendly support on Discord</li>
+          </ul>
+          <a class="ghost" href="#work">View portfolio →</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+      <div class="brand" aria-label="Cris’s Development footer">
+        <span class="brand-logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 17h16v2H4zM11 5h2v9h-2zM7 9h2v5H7zM15 7h2v7h-2z"/></svg></span>
+        <span>Cris’s Development</span>
+      </div>
+      <small>© <span id="year"></span> Cris’s Development. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    function toggleMenu(force) {
+      const open = force === undefined ? mobileMenu.classList.contains('hidden') : force;
+      mobileMenu.classList.toggle('hidden', !open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+    }
+    menuBtn?.addEventListener('click', () => toggleMenu());
+
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.animate([
+            {opacity: 0, transform: 'translateY(10px)'},
+            {opacity: 1, transform: 'translateY(0)'}
+          ], { duration: 500, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards' });
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.card, .shot, .tier, .quote').forEach(el => observer.observe(el));
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Contact form – opens mail client with prefilled content
+    function submitContact(ev) {
+      ev.preventDefault();
+      const fd = new FormData(ev.target);
+      const name = fd.get('name');
+      const email = fd.get('email');
+      const budget = fd.get('budget') || 'Not specified';
+      const msg = fd.get('message');
+      const subject = encodeURIComponent(`New Project Inquiry — ${name}`);
+      const body = encodeURIComponent(
+`Name: ${name}
+Email: ${email}
+Budget: ${budget}
+\nProject Details:\n${msg}`
+      );
+      const mailto = `mailto:youremail@example.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto; // triggers user mail client
+      const status = document.getElementById('formStatus');
+      status.textContent = 'Opening your email app… If nothing happens, email us at youremail@example.com';
+      return false;
+    }
+
+    // Deep‑link to contact with a chosen tier
+    function goContact(tier){
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+      setTimeout(() => {
+        const budget = document.querySelector('input[name="budget"]');
+        if (budget) budget.value = `Recommended tier: ${tier}`;
+      }, 250);
+    }
+  </script>
+</body>
+</html>
