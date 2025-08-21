@@ -1,156 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cris's Development</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
+    /* Reset + Background */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
       color: white;
+      min-height: 100vh;
       overflow-x: hidden;
-    }
-
-    header {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      padding: 20px 50px;
     }
 
-    header h1 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 28px;
-      color: #fff;
-    }
+    h1 { font-size: 3rem; margin: 40px 0; text-align: center; }
 
-    header nav a {
-      margin-left: 20px;
-      text-decoration: none;
-      color: #ddd;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    header nav a:hover {
-      color: #00e6ff;
-    }
-
-    .discord-btn {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 10px 20px;
+    /* Glass Button */
+    .glass-btn {
+      padding: 14px 28px;
+      margin: 10px;
+      border: none;
       border-radius: 15px;
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
-      color: #7289da;
-      font-weight: bold;
-      text-decoration: none;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+    }
+    .glass-btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      background: rgba(255,255,255,0.25);
     }
 
+    /* Discord Button */
+    .discord-btn {
+      background: rgba(88,101,242,0.25);
+      border: 1px solid rgba(88,101,242,0.5);
+    }
     .discord-btn:hover {
-      background: rgba(114,137,218,0.2);
-      transform: scale(1.1);
-      box-shadow: 0 0 20px #7289da;
+      background: rgba(88,101,242,0.5);
     }
 
-    section {
-      padding: 80px 50px;
+    /* Form Section */
+    .form-container {
+      margin: 50px auto;
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
       text-align: center;
     }
-
-    section h2 {
-      font-size: 36px;
-      margin-bottom: 50px;
-      font-family: 'Montserrat', sans-serif;
+    .form-container label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 600;
     }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.15);
-      padding: 30px;
-      border-radius: 20px;
-      backdrop-filter: blur(15px);
-      transition: all 0.4s ease;
-      transform: translateY(20px);
-      opacity: 0;
-    }
-
-    .card:hover {
-      transform: translateY(-10px) scale(1.05);
-      border-color: #00e6ff;
-      box-shadow: 0 0 30px rgba(0,230,255,0.4);
-    }
-
-    .card h3 {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 20px;
+    .form-container input,
+    .form-container textarea {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      outline: none;
       margin-bottom: 15px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 1rem;
+      resize: none;
     }
+    .form-container input::placeholder,
+    .form-container textarea::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    .form-container button {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    /* Animations */
+    .fade-up { opacity: 0; transform: translateY(20px); }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Cris's Development</h1>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#why">Why Choose Us?</a>
-      <a href="#contact">Contact</a>
-      <a href="https://discord.com/users/1047483573264982066" target="_blank" class="discord-btn">Discord</a>
-    </nav>
-  </header>
+  <h1 class="fade-up">🚀 Cris's Development</h1>
 
-  <section id="services">
-    <h2>Our Services</h2>
-    <div class="grid">
-      <div class="card"><h3>Game Scripting</h3><p>Custom Roblox scripts tailored for your needs.</p></div>
-      <div class="card"><h3>UI/UX Design</h3><p>Sleek, animated, and user-friendly interfaces.</p></div>
-      <div class="card"><h3>Security</h3><p>Strong anti-exploit and protection systems.</p></div>
-      <div class="card"><h3>Consulting</h3><p>Professional advice to level up your project.</p></div>
-    </div>
-  </section>
+  <!-- Buttons -->
+  <div class="fade-up" style="text-align:center;">
+    <button class="glass-btn">Home</button>
+    <button class="glass-btn">Services</button>
+    <button class="glass-btn">Prices</button>
+    <a href="https://discord.com/users/1047483573264982066" target="_blank">
+      <button class="glass-btn discord-btn">💬 Discord</button>
+    </a>
+  </div>
 
-  <section id="why">
-    <h2>Why Choose Us?</h2>
-    <div class="grid">
-      <div class="card"><h3>⚡ Fast Delivery</h3><p>We value your time and deliver quickly.</p></div>
-      <div class="card"><h3>🎨 Creativity</h3><p>Modern and aesthetic designs for every need.</p></div>
-      <div class="card"><h3>🔒 Security</h3><p>We prioritize safe and optimized solutions.</p></div>
-    </div>
-  </section>
+  <!-- Request Form -->
+  <div class="form-container fade-up">
+    <h2>Request a Quote</h2>
+    <form id="quoteForm">
+      <label for="budget">💰 Budget (in Robux)</label>
+      <input type="number" id="budget" name="budget" placeholder="Enter your budget..." required>
 
-  <section id="contact">
-    <h2>Contact Us</h2>
-    <p>Join us on Discord to start your project today!</p>
-    <a href="https://discord.com/users/1047483573264982066" target="_blank" class="discord-btn">Message on Discord</a>
-  </section>
+      <label for="description">📝 Description</label>
+      <textarea id="description" name="description" rows="5" placeholder="Describe what you need..." required></textarea>
 
-  <!-- GSAP Animations -->
+      <button type="submit" class="glass-btn">Submit Request</button>
+    </form>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script>
-    gsap.utils.toArray(".card").forEach((card, i) => {
-      gsap.to(card, {
-        scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-        },
+    // Fade animations
+    gsap.utils.toArray(".fade-up").forEach((el, i) => {
+      gsap.to(el, {
         opacity: 1,
         y: 0,
-        duration: 0.8,
-        delay: i * 0.2,
+        duration: 1,
+        delay: i * 0.3,
         ease: "power3.out"
       });
+    });
+
+    // Handle Form (currently just shows alert)
+    document.getElementById("quoteForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const budget = document.getElementById("budget").value;
+      const desc = document.getElementById("description").value;
+      alert(`✅ Request Submitted!\n\nBudget: ${budget} R$ \nDescription: ${desc}`);
     });
   </script>
 </body>
